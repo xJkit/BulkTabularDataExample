@@ -36,6 +36,8 @@ module.exports = {
         loader: 'babel',
         query: {
           presets: ['es2015', 'react', 'airbnb', 'stage-0'],
+          plugins: [
+            ['import', { libraryName: 'antd', style: 'css' }]],
         },
         test: /\.jsx?$/,
         exclude: /(node_modules)/,
