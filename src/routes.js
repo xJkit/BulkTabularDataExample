@@ -1,10 +1,8 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 
 // Load Container Pages
-import App from 'containers/App';
-import PageA from 'containers/PageA';
-import NotFound from 'containers/NotFound';
+import { App, Home, HTMLTable, NotFound, RCTable, FixedDataTable } from 'containers';
 
 // Root Path
 const ROOT = '/';
@@ -12,7 +10,10 @@ const ROOT = '/';
 // routes
 const routes = (
   <Route path={ROOT} component={App}>
-    <Route path="a" component={PageA} />
+    <IndexRoute component={Home} />
+    <Route path="html-table" component={HTMLTable} />
+    <Route path="rc-table" component={RCTable} />
+    <Route path="fixed-data-table" component={FixedDataTable} />
     <Route path="*" component={NotFound} />
   </Route>
 );

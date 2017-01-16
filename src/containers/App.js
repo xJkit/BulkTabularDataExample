@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Layout, Menu, Icon } from 'antd';
-const { Header, Footer, Content, Sider } = Layout;
+import { Link } from 'react-router';
+const { Footer, Content, Sider } = Layout;
 const { SubMenu, Item } = Menu;
 
 class App extends Component {
@@ -13,35 +14,34 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: 1,
+      current: '1',
     };
   }
 
   render() {
     return (
       <div className="app">
-        <Layout>
-          <Sider>
+        <Layout className="container">
+          <Sider className="side-bar">
             <Menu
               theme="dark"
               style={{ width: 240 }}
-              selectedKeys={this.state.current}
+              mode="inline"
             >
-              <Item>Welcome</Item>
+              <Item><Link to="/">Welcome</Link></Item>
               <SubMenu
                 key="sub1"
                 title={<span><Icon type="appstore" /><span>Table Form</span></span>}
               >
-                <Item key="1">HTML Table</Item>
-                <Item key="2">RC-TABLE</Item>
-                <Item key="3">FixedDataTable</Item>
+                <Item key="1"><Link to="html-table">HTML Table</Link></Item>
+                <Item key="2"><Link to="rc-table">RC-TABLE</Link></Item>
+                <Item key="3"><Link to="fixed-data-table">FixedDataTable</Link></Item>
               </SubMenu>
             </Menu>
           </Sider>
           <Content>
-            <Header>This is Header</Header>
-            <Content>This is Content</Content>
-            <Footer>This is Footer</Footer>
+            <Content className="main-content">{this.props.children}</Content>
+            <Footer className="footer">Created by <a href="https://github.com/xJkit" target="_blank">JayZ</a> @Copyright Reserved</Footer>
           </Content>
         </Layout>
       </div>
