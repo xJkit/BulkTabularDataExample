@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
-import Loading from 'react-loading';
+import { Spin } from 'antd';
 
 const Spinner = (props) => (
   <div className="spinner">
-    <Loading className="spinner-indicator" type="bars" color="#108ee9" />
-    <span className="spinner-tip">{props.tip}</span>
+    <Spin className="spinner-indicator" tip={props.tip} size="large" />
   </div>
 );
 

@@ -4939,10 +4939,6 @@ react-lazy-load@^3.0.10:
     lodash.debounce "^4.0.0"
     lodash.throttle "^4.0.0"
 
-react-loading@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-0.0.9.tgz#e9fba6948915ba7742a508193828b6c73eb04956"
-
 react-redux@^4.4.6:
   version "4.4.6"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-4.4.6.tgz#4b9d32985307a11096a2dd61561980044fcc6209"
@@ -4989,6 +4985,13 @@ react-slick@~0.14.2:
     object-assign "^4.1.0"
     react-responsive-mixin "^0.4.0"
     slick-carousel "^1.6.0"
+
+react-spinkit@^1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/react-spinkit/-/react-spinkit-1.1.11.tgz#a08e37437d46af16ce7b9c87904b8e786b1359a3"
+  dependencies:
+    classnames "^2.2.3"
+    object-assign "^4.1.0"
 
 react@^15.3.2:
   version "15.4.0"

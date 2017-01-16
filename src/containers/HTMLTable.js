@@ -73,10 +73,10 @@ class HTMLTable extends Component {
     const { bulkData, isFetching } = this.props;
     return (
       <div className="html-table">
-        {isFetching
-          ? <Spinner />
-          : this.renderTable(bulkData)
-        }
+      {isFetching
+        ? <Spinner />
+        : this.renderTable(bulkData)
+      }
       </div>
     );
   }
