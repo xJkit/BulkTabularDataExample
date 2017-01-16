@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackDevMiddleware = require('webpack-dev-middleware');
+const bulkData = require('./bulkdata.json');
 
 const ADDR = 'localhost';
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,9 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler));
 
+app.get('/bulkdata', (req, res) => {
+  res.json(bulkData);
+});
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'));

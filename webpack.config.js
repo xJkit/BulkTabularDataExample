@@ -42,6 +42,9 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /(node_modules)/,
       }, {
+        loaders: ['style-loader', 'css-loader?sourceMap'],
+        test: /\.css$/,
+      }, {
         loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
         test: /\.scss$/,
         exclude: /node_modules/,
@@ -49,9 +52,6 @@ module.exports = {
         test: /\.(png|jpg|svg|gif|otf|ttf|woff|eot)$/,
         loaders: ['file'],
         exclude: /node_modules/,
-      }, {
-        loaders: ['style-loader', 'css-loader?sourceMap'],
-        test: /\.css$/,
       },
     ],
   },

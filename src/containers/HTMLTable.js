@@ -5,7 +5,8 @@ class HTMLTable extends Component {
   render() {
     return (
       <div className="html-table">
-        Original HTML Table
+        <section className="title">Title</section>
+        <section className="content">Content</section>
       </div>
     );
   }
