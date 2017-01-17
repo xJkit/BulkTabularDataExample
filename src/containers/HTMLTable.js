@@ -15,7 +15,6 @@ class HTMLTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bulkData: this.props.bulkData,
       timeStart: 0,
       timeEnd: 0,
     };
