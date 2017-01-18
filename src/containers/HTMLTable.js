@@ -35,13 +35,6 @@ class HTMLTable extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.setState({
-      timeStart: 0,
-      timeEnd: 0,
-    });
-  }
-
   renderTable(songs) {
     const { timeStart, timeEnd } = this.props.timer;
     return (
