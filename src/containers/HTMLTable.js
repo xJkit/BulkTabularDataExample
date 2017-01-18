@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { loadBulkData } from 'actions/bulkData';
+import { setTimerStart, setTimerEnd } from 'actions/timer';
 import { connect } from 'react-redux';
 import Spinner from 'components/Spinner';
 
@@ -8,35 +9,41 @@ class HTMLTable extends Component {
   static propTypes = {
     isFetching: PropTypes.bool.isRequired,
     loadBulkData: PropTypes.func.isRequired,
+    setTimerStart: PropTypes.func.isRequired,
+    setTimerEnd: PropTypes.func.isRequired,
     err: PropTypes.string.isRequired,
+    timer: PropTypes.object.isRequired,
     bulkData: PropTypes.arrayOf(PropTypes.object),
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      timeStart: 0,
-      timeEnd: 0,
-    };
-  }
-
   componentWillMount() {
-    this.setState({
-      timeStart: new Date().getTime(),
-    });
     this.props.loadBulkData();
   }
 
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.bulkData.length !== this.props.bulkData.length) {
+      console.log(`bulkData.length: ${nextProps.bulkData.length}`);
+      console.log('data ready, start rendering and counting time...');
+      this.props.setTimerStart();
+    }
+  }
+  //
   componentDidUpdate({ isFetching }) {
     if (isFetching !== this.props.isFetching) {
-      this.setState({
-        timeEnd: new Date().getTime(),
-      });
+      this.props.setTimerEnd();
     }
   }
 
+  componentWillUnmount() {
+    this.setState({
+      timeStart: 0,
+      timeEnd: 0,
+    });
+  }
+
   renderTable(songs) {
-    const { timeStart, timeEnd } = this.state;
+    const { timeStart, timeEnd } = this.props.timer;
     return (
       <div>
         <h1>渲染時間：{timeEnd - timeStart} 毫秒</h1>
@@ -85,8 +92,11 @@ const mapStateToProps = state => ({
   bulkData: state.bulkData.payload,
   isFetching: state.bulkData.isFetching,
   err: state.bulkData.err,
+  timer: state.timer,
 });
 
 export default connect(mapStateToProps, {
   loadBulkData,
+  setTimerStart,
+  setTimerEnd,
 })(HTMLTable);

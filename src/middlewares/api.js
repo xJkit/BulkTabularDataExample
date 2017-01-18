@@ -8,6 +8,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
     console.log('irrelevant action passes');
     return next(action);
   }
+  console.log('api fetch action catched');
   const [requestType, successType, failureType] = action[CALL_API].types;
   const { endpoint } = action[CALL_API];
   dispatch({

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { loadBulkData } from 'actions/bulkData';
+import { setTimerStart, setTimerEnd } from 'actions/timer';
 import Spinner from 'components/Spinner';
 import { Table } from 'antd';
 
@@ -10,38 +11,36 @@ class RCTable extends Component {
     loadBulkData: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
     err: PropTypes.string.isRequired,
+    timer: PropTypes.object.isRequired,
+    setTimerStart: PropTypes.func.isRequired,
+    setTimerEnd: PropTypes.func.isRequired,
     payload: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      timeStart: 0,
-      timeEnd: 0,
-    };
+  componentWillMount() {
+    this.props.loadBulkData();
   }
 
-  componentWillMount() {
-    this.setState({
-      timeStart: new Date().getTime(),
-    });
-    this.props.loadBulkData();
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.payload.length !== this.props.payload.length) {
+      console.log(`payload.length: ${nextProps.payload.length}`);
+      console.log('data ready, start rendering and counting time...');
+      this.props.setTimerStart();
+    }
   }
 
   componentDidUpdate({ isFetching }) {
     if (isFetching !== this.props.isFetching) {
-      this.setState({
-        timeEnd: new Date().getTime(),
-      });
+      this.props.setTimerEnd();
     }
   }
 
+
   renderTable(songs) {
-    const { timeStart, timeEnd } = this.state;
     const columns = [{
       title: '編號',
       dataIndex: 'id',
-      key: 'number',
+      key: 'id',
       width: 100,
     }, {
       title: '歌手',
@@ -68,6 +67,7 @@ class RCTable extends Component {
       dataIndex: 'fileName',
       key: 'fileName',
     }];
+    const { timeStart, timeEnd } = this.props.timer;
 
     return (
       <div>
@@ -76,7 +76,8 @@ class RCTable extends Component {
           columns={columns}
           pagination={false}
           dataSource={songs}
-          scroll={{ y: 650 }}
+          scroll={{ y: 700 }}
+          rowKey="id"
         />
       </div>
     );
@@ -97,13 +98,17 @@ class RCTable extends Component {
 
 const mapStateToProps = state => {
   const { isFetching, payload, err } = state.bulkData;
+  const { timer } = state;
   return {
     isFetching,
     err,
     payload,
+    timer,
   };
 };
 
 export default connect(mapStateToProps, {
   loadBulkData,
+  setTimerStart,
+  setTimerEnd,
 })(RCTable);

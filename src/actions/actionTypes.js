@@ -11,3 +11,5 @@ function createTypes(base) {
 }
 
 export const GET_BULK_DATA = createTypes('GET_BULK_DATA');
+export const SET_TIMER_START = 'SET_TIMER_START';
+export const SET_TIMER_END = 'SET_TIMER_END';
