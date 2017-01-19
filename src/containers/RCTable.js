@@ -22,15 +22,15 @@ class RCTable extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.payload.length !== this.props.payload.length) {
+    if (nextProps.isFetching === false && this.props.isFetching === true) {
       console.log(`payload.length: ${nextProps.payload.length}`);
       console.log('data ready, start rendering and counting time...');
       this.props.setTimerStart();
     }
   }
 
-  componentDidUpdate({ isFetching }) {
-    if (isFetching !== this.props.isFetching) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.isFetching === true && this.props.isFetching === false) {
       this.props.setTimerEnd();
     }
   }
@@ -71,7 +71,7 @@ class RCTable extends Component {
 
     return (
       <div>
-        <h1>渲染時間：{timeEnd - timeStart} 毫秒</h1>
+        <h1>渲染時間：{(timeEnd - timeStart) / 1000} 秒</h1>
         <Table
           columns={columns}
           pagination={false}
