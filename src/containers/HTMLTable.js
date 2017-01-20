@@ -37,7 +37,7 @@ class HTMLTable extends Component {
   renderTable(songs) {
     const { timeStart, timeEnd } = this.props.timer;
     return (
-      <div>
+      <div className="html-table">
         <h1>渲染時間：{(timeEnd - timeStart) / 1000} 秒</h1>
         <table>
           <thead>
@@ -70,7 +70,7 @@ class HTMLTable extends Component {
   render() {
     const { bulkData, isFetching } = this.props;
     return (
-      <div className="html-table">
+      <div>
       {isFetching
         ? <Spinner />
         : this.renderTable(bulkData)
